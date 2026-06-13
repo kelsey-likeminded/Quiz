@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Where Should You Travel Solo? | Likeminded Travel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal-dark:   #1B7896;
+      --teal-mid:    #2A6070;
+      --teal-light:  #B4DBDC;
+      --terra:       #E8A07E;
+      --terra-dark:  #C97A58;
+      --sand:        #F0E6D3;
+      --sand-light:  #FFF7F2;
+      --text-dark:   #1B3A4B;
+      --text-mid:    #2A6070;
+      --text-light:  #7AACB8;
+      --white:       #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--sand-light);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: rgba(255,247,242,0.96);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(180,219,220,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--teal-dark);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--terra); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, #0D3D52 100%);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 45%;
+      background: radial-gradient(ellipse at 50% 100%, rgba(232,160,126,0.2) 0%, transparent 70%);
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal-light);
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-style: italic;
+      color: var(--teal-light);
+      line-height: 1.15;
+      max-width: 680px;
+      margin: 0 auto 1.2rem;
+      position: relative;
+    }
+    .hero p {
+      font-size: 1rem;
+      color: rgba(255,247,242,0.78);
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.8;
+      position: relative;
+    }
+
+    /* ── PROGRESS ── */
+    .progress-wrap {
+      max-width: 680px;
+      margin: 2.5rem auto 0;
+      padding: 0 1.5rem;
+      position: relative;
+    }
+    .progress-bar-bg {
+      height: 3px;
+      background: rgba(180,219,220,0.25);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--terra);
+      border-radius: 2px;
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+    .progress-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal-light);
+      margin-top: 0.6rem;
+      text-align: right;
+    }
+
+    /* ── QUIZ CONTAINER ── */
+    .quiz-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── QUESTION CARD ── */
+    .question-card {
+      background: var(--white);
+      border-radius: 6px;
+      padding: 2.8rem 3rem;
+      box-shadow: 0 4px 30px rgba(27,120,150,0.08);
+      display: none;
+      animation: fadeUp 0.4s ease forwards;
+    }
+    .question-card.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .q-number {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 0.8rem;
+    }
+    .q-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-style: italic;
+      color: var(--teal-dark);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    .q-sub {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      font-weight: 300;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    /* ── OPTIONS ── */
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    .options.single-col { grid-template-columns: 1fr; }
+
+    .option {
+      border: 1.5px solid rgba(180,219,220,0.5);
+      border-radius: 4px;
+      padding: 1.1rem 1.3rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--sand-light);
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    .option:hover {
+      border-color: var(--teal-dark);
+      background: rgba(180,219,220,0.12);
+      transform: translateY(-2px);
+    }
+    .option.selected {
+      border-color: var(--teal-dark);
+      background: rgba(27,120,150,0.06);
+    }
+    .option-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .option-text {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .option-sub {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-weight: 300;
+      margin-top: 2px;
+      display: block;
+    }
+    .option-radio {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--teal-light);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 3px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .option.selected .option-radio {
+      border-color: var(--teal-dark);
+      background: var(--teal-dark);
+    }
+    .option.selected .option-radio::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    /* ── NAV BUTTONS ── */
+    .q-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .btn-back {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.6rem 0;
+      transition: color 0.2s;
+    }
+    .btn-back:hover { color: var(--teal-dark); }
+    .btn-back:disabled { opacity: 0; pointer-events: none; }
+
+    .btn-next {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--teal-dark);
+      color: white;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .btn-next.enabled {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .btn-next.enabled:hover {
+      background: var(--terra-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ── RESULTS ── */
+    .results-card {
+      display: none;
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .results-card.active { display: block; }
+
+    .result-hero {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, #0D3D52 100%);
+      border-radius: 6px;
+      padding: 3rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .result-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal-light);
+      margin-bottom: 0.8rem;
+    }
+    .result-destination {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-style: italic;
+      color: var(--terra);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .result-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--teal-light);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+    .result-flag {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .result-body {
+      background: white;
+      border-radius: 6px;
+      padding: 2.5rem 3rem;
+      box-shadow: 0 4px 30px rgba(27,120,150,0.08);
+      margin-bottom: 1.5rem;
+    }
+    .result-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--teal-dark);
+      font-style: italic;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--teal-light);
+    }
+    .result-description {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--text-dark);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .why-item {
+      background: var(--sand-light);
+      border-left: 3px solid var(--terra);
+      padding: 0.9rem 1rem;
+      border-radius: 0 3px 3px 0;
+    }
+    .why-item-title {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--teal-dark);
+      margin-bottom: 0.2rem;
+    }
+    .why-item-body {
+      font-size: 0.76rem;
+      color: var(--text-mid);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .also-consider {
+      background: rgba(180,219,220,0.12);
+      border-radius: 4px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .also-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--terra-dark);
+      margin-bottom: 0.5rem;
+    }
+    .also-destinations {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--teal-dark);
+      font-style: italic;
+    }
+
+    /* ── CTA BLOCK ── */
+    .cta-block {
+      background: var(--terra);
+      border-radius: 6px;
+      padding: 2.5rem 3rem;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: white;
+      font-style: italic;
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+    }
+    .cta-block p {
+      font-size: 0.9rem;
+      color: rgba(255,247,242,0.9);
+      font-weight: 300;
+      line-height: 1.8;
+      max-width: 480px;
+      margin: 0 auto 1.8rem;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-white {
+      background: white;
+      color: var(--terra-dark);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .btn-white:hover { background: var(--sand); transform: translateY(-1px); }
+    .btn-outline-white {
+      background: transparent;
+      color: white;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border: 1px solid rgba(255,247,242,0.6);
+      border-radius: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    .btn-outline-white:hover { border-color: white; transform: translateY(-1px); }
+
+    .retake-wrap {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .btn-retake {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: color 0.2s;
+    }
+    .btn-retake:hover { color: var(--teal-dark); }
+
+    @media (max-width: 600px) {
+      .question-card { padding: 2rem 1.5rem; }
+      .options { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .result-body { padding: 2rem 1.5rem; }
+      .cta-block { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">likeMINDED Travel</a>
+  <a class="nav-back" href="/">← Back to site</a>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow">Solo Travel Quiz</p>
+  <h1>Where in the world is your soul calling you?</h1>
+  <p>Answer 9 honest questions and discover the solo destination that's made for who you are right now.</p>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">Question 1 of 9</div>
+  </div>
+</div>
+
+<div class="quiz-wrap">
+
+  <!-- ══ QUESTIONS ══ -->
+
+  <!-- Q1 -->
+  <div class="question-card active" data-q="0">
+    <div class="q-number">Question 1 of 9</div>
+    <div class="q-text">Where are you in life right now?</div>
+    <div class="q-sub">Be honest — this is just between us.</div>
+    <div class="options single-col">
+      <div class="option" data-value="transition" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I'm in the middle of a big transition — career, relationship, a new chapter beginning or ending</div>
+        </div>
+      </div>
+      <div class="option" data-value="depleted" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I'm burned out and running on empty — I need to refill my cup before I have nothing left to give</div>
+        </div>
+      </div>
+      <div class="option" data-value="celebrating" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I'm celebrating something — a milestone, a birthday, a hard-won achievement</div>
+        </div>
+      </div>
+      <div class="option" data-value="curious" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I'm just... ready. I've been playing it safe and I want to feel alive again</div>
+        </div>
+      </div>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" disabled>← Back</button>
+      <button class="btn-next" id="next-0" onclick="nextQuestion(0)">Next →</button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-card" data-q="1">
+    <div class="q-number">Question 2 of 9</div>
+    <div class="q-text">What do you most want to feel on this trip?</div>
+    <div class="q-sub">Not what you want to see — what do you want to feel?</div>
+    <div class="options">
+      <div class="option" data-value="alive" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🔥 Alive and electric</div>
+          <span class="option-sub">Heart pounding, senses wide open</span>
+        </div>
+      </div>
+      <div class="option" data-value="peaceful" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🌿 Peaceful and restored</div>
+          <span class="option-sub">Still, quiet, deeply rested</span>
+        </div>
+      </div>
+      <div class="option" data-value="connected" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🤝 Connected and seen</div>
+          <span class="option-sub">Part of something bigger than myself</span>
+        </div>
+      </div>
+      <div class="option" data-value="free" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🕊️ Completely free</div>
+          <span class="option-sub">No agenda, no expectations, no rules</span>
+        </div>
+      </div>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion(1)">← Back</button>
+      <button class="btn-next" id="next-1" onclick="nextQuestion(1)">Next →</button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-card" data-q="2">
+    <div class="q-number">Question 3 of 9</div>
+    <div class="q-text">When you imagine your perfect solo day, what does it look like?</div>
+    <div class="q-sub">Go with your gut — first answer is usually the truest.</div>
+    <div class="options">
+      <div class="option" data-value="adventure" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🥾 Hiking, diving, or exploring somewhere wild and remote</div>
+        </div>
+      </div>
+      <div class="option" data-value="culture" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🏛️ Wandering through markets, ruins, or museums at my own pace</div>
+        </div>
+      </div>
+      <div class="option" data-value="food" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🍷 Long lunches, local wine, and food that makes me close my eyes</div>
+        </div>
+      </div>
+      <div class="option" data-value="wellness" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🧘 Morning yoga, journaling, a healing session, and early to bed</div>
+        </div>
+      </div>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion(2)">← Back</button>
+      <button class="btn-next" id="next-2" onclick="nextQuestion(2)">Next →</button>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-card" data-q="3">
+    <div class="q-number">Question 4 of 9</div>
+    <div class="q-text">How far outside your comfort zone are you willing to go?</div>
+    <div class="q-sub">There's no wrong answer — this helps me find your right fit.</div>
+    <div class="options single-col">
+      <div class="option" data-value="gentle" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">Gently nudged — I want to stretch but still feel safe and somewhat familiar</div>
+        </div>
+      </div>
+      <div class="option" data-value="moderate" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">Meaningfully challenged — I want something that genuinely pushes me</div>
+        </div>
+      </div>
+      <div class="option" data-value="bold" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">Completely out there — give me somewhere that challenges everything I think I know</div>
+        </div>
+      </div>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion(3)">← Back</button>
+      <button class="btn-next" id="next-3" onclick="nextQuestion(3)">Next →</button>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-card" data-q="4">
+    <div class="q-number">Question 5 of 9</div>
+    <div class="q-text">What landscape speaks to your soul?</div>
+    <div class="q-sub">Close your eyes and let yourself feel it.</div>
+    <div class="options">
+      <div class="option" data-value="ocean" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🌊 Ocean & coastline</div>
+          <span class="option-sub">Wide horizons, salt air, endless blue</span>
+        </div>
+      </div>
+      <div class="option" data-value="desert" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🏜️ Desert & dunes</div>
+          <span class="option-sub">Vast silence, ancient land, burning sunsets</span>
+        </div>
+      </div>
+      <div class="option" data-value="city" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🏙️ City energy</div>
+          <span class="option-sub">Laneways, cafes, art, a city that hums</span>
+        </div>
+      </div>
+      <div class="option" data-value="nature" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">🌿 Jungle & nature</div>
+          <span class="option-sub">Lush, green, untamed, alive</span>
+        </div>
+      </div>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion(4)">← Back</button>
+      <button class="btn-next" id="next-4" onclick="nextQuestion(4)">Next →</button>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-card" data-q="5">
+    <div class="q-number">Question 6 of 9</div>
+    <div class="q-text">How do you feel about meeting new people on your trip?</div>
+    <div class="q-sub">This shapes everything about the right experience for you.</div>
+    <div class="options single-col">
+      <div class="option" data-value="social" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">It's one of the main reasons I'm going — I want deep, real connection with other travelers</div>
+        </div>
+      </div>
+      <div class="option" data-value="open" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I'm open to it when it happens naturally, but it's not the priority</div>
+        </div>
+      </div>
+      <div class="option" data-value="solo-solo" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">Honestly, I mainly want time with myself — deep solitude is what I'm craving</div>
+        </div>
+      </div>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion(5)">← Back</button>
+      <button class="btn-next" id="next-5" onclick="nextQuestion(5)">Next →</button>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-card" data-q="6">
+    <div class="q-number">Question 7 of 9</div>
+    <div class="q-text">Which of these words resonates most right now?</div>
+    <div class="q-sub">Trust your instinct on this one.</div>
+    <div class="options">
+      <div class="option" data-value="transform" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div><div class="option-text">✨ Transformation</div></div>
+      </div>
+      <div class="option" data-value="adventure" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div><div class="option-text">⚡ Adventure</div></div>
+      </div>
+      <div class="option" data-value="beauty" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div><div class="option-text">🌸 Beauty</div></div>
+      </div>
+      <div class="option" data-value="freedom" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div><div class="option-text">🕊️ Freedom</div></div>
+      </div>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion(6)">← Back</button>
+      <button class="btn-next" id="next-6" onclick="nextQuestion(6)">Next →</button>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-card" data-q="7">
+    <div class="q-number">Question 8 of 9</div>
+    <div class="q-text">What would make you come home saying "that was exactly what I needed"?</div>
+    <div class="q-sub">This one matters. Take a moment with it.</div>
+    <div class="options single-col">
+      <div class="option" data-value="clarity" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I came home knowing myself better — clearer about who I am and what I want</div>
+        </div>
+      </div>
+      <div class="option" data-value="stories" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I have stories I'll be telling for the rest of my life — things I saw and did that genuinely blew my mind</div>
+        </div>
+      </div>
+      <div class="option" data-value="restored" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I feel completely restored — like I filled back up and I'm ready to show up fully for my life again</div>
+        </div>
+      </div>
+      <div class="option" data-value="connection" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I made connections that matter — people or places that changed how I see the world</div>
+        </div>
+      </div>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion(7)">← Back</button>
+      <button class="btn-next" id="next-7" onclick="nextQuestion(7)">Next →</button>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question-card" data-q="8">
+    <div class="q-number">Question 9 of 9</div>
+    <div class="q-text">Last one. Which of these sounds most like you on a trip?</div>
+    <div class="q-sub">Pick the one that made you smile — or made you a little nervous.</div>
+    <div class="options single-col">
+      <div class="option" data-value="spontaneous" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I said yes to something I normally never would — and it was the best moment of the whole trip</div>
+        </div>
+      </div>
+      <div class="option" data-value="present" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I sat somewhere beautiful for two hours and didn't look at my phone once</div>
+        </div>
+      </div>
+      <div class="option" data-value="brave" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I did something that scared me a little — and it made me feel more alive than I have in years</div>
+        </div>
+      </div>
+      <div class="option" data-value="human" onclick="selectOption(this)">
+        <div class="option-radio"></div>
+        <div>
+          <div class="option-text">I had a conversation with a stranger that I'll think about for the rest of my life</div>
+        </div>
+      </div>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion(8)">← Back</button>
+      <button class="btn-next enabled" id="next-8" onclick="showResults()">See My Result →</button>
+    </div>
+  </div>
+
+  <!-- ══ RESULTS ══ -->
+  <div class="results-card" id="results">
+    <!-- filled by JS -->
+  </div>
+
+  <div class="retake-wrap" id="retakeWrap" style="display:none">
+    <button class="btn-retake" onclick="retakeQuiz()">↺ Retake the quiz</button>
+  </div>
+
+</div><!-- /quiz-wrap -->
+
+<script>
+  const TOTAL = 9;
+  let current = 0;
+  let answers = {};
+
+  // ── destinations data ──────────────────────────────────────────────────────
+  const destinations = {
+    morocco: {
+      flag: '🇲🇦',
+      name: 'Morocco',
+      tagline: 'Where the ancient world cracks you open.',
+      description: `Morocco is not a gentle destination. It is a full sensory awakening — the kind of place that strips away everything familiar and asks you to be completely present. The colors, the sounds, the labyrinthine medinas, the silence of the Sahara at sunrise. It is a place for people who are ready to feel something big.
+
+Morocco is especially powerful for those in transition or who have been quietly longing for something they cannot name. It has a way of surfacing exactly what you need — whether that is clarity, courage, connection, or simply the reminder that the world is so much more vast and beautiful than your daily life lets you see.
+
+Solo travelers consistently describe Morocco as the trip that changed them. Come open. Come curious. Come ready to be surprised by yourself.`,
+      whys: [
+        { title: 'Soul-level depth', body: 'Few places shift your perspective as quickly or as profoundly' },
+        { title: 'Sensory awakening', body: 'Colors, spices, music — your senses will work overtime in the best way' },
+        { title: 'Human warmth', body: 'Moroccan hospitality is legendary — you will not feel alone for long' },
+        { title: 'Desert magic', body: 'The Sahara at sunrise is a once-in-a-lifetime experience' },
+        { title: 'Group trip options', body: 'Excellent small-group tours for solo travelers available' },
+        { title: 'Transformation catalyst', body: 'Proven to crack people open — especially during life transitions' },
+      ],
+      also: 'Jordan · Egypt · Portugal',
+    },
+    australia: {
+      flag: '🇦🇺',
+      name: 'Australia',
+      tagline: 'The place that feels like home — even the first time.',
+      description: `Australia has a way of doing something unexpected to people: it makes them feel completely at home in a place they have never been. There is a warmth to the culture, an openness to the people, and a scale to the landscape that makes you feel simultaneously small and deeply alive.
+
+From the otherworldly silence of the Outback to the electric energy of Melbourne's laneways, from the technicolor world beneath the surface of the Great Barrier Reef to the golden beaches of Queensland — Australia offers every kind of solo travel experience in one country.
+
+It is ideal for travelers who want adventure and ease in equal measure. The infrastructure is excellent, the people are genuinely welcoming, and there is enough variety to fill weeks without ever feeling like you've run out of things to discover. Come for the reef. Stay for the people. Leave changed by both.`,
+      whys: [
+        { title: 'Ease of solo travel', body: 'English-speaking, safe, excellent infrastructure for independent travelers' },
+        { title: 'Melbourne', body: 'One of the most liveable — and loveable — cities in the world' },
+        { title: 'Great Barrier Reef', body: 'A bucket-list experience unlike anything else on earth' },
+        { title: 'Natural wonder', body: 'Diverse landscapes from desert to reef to rainforest to city' },
+        { title: 'Warm culture', body: 'Australians are genuinely friendly — you will make connections easily' },
+        { title: 'Adventure options', body: 'World-class diving, hiking, wildlife encounters and more' },
+      ],
+      also: 'New Zealand · Fiji · Bali',
+    },
+    italy: {
+      flag: '🇮🇹',
+      name: 'Italy',
+      tagline: 'Where beauty is a way of life — and you finally slow down enough to feel it.',
+      description: `Italy does something to people. It slows them down. It reminds them that beauty is not a luxury — it is a necessity. That a meal is worth two hours. That a glass of wine at dusk in a piazza is one of life's highest achievements.
+
+For solo travelers, Italy is a love letter. You can disappear into the streets of Rome and feel held by centuries of history. You can wander Tuscany's rolling hills and feel your nervous system finally exhale. You can sit alone at a restaurant in Florence and discover that eating solo in Italy is not lonely — it is one of the most pleasurable things you have ever done.
+
+Italy rewards presence. The slower you go, the more it gives you. It is not a destination for ticking boxes — it is a destination for arriving and letting yourself be completely absorbed. Come hungry. Leave full in every sense of the word.`,
+      whys: [
+        { title: 'Food & wine', body: 'The best culinary experience in the world, full stop' },
+        { title: 'Beauty everywhere', body: 'Every street, town and landscape is a work of art' },
+        { title: 'Solo dining culture', body: 'Eating alone in Italy is a pleasure, not an embarrassment' },
+        { title: 'Rich history', body: 'Thousands of years of culture to absorb at your own pace' },
+        { title: 'Regional variety', body: 'Rome, Tuscany, Amalfi, Sicily — each completely different' },
+        { title: 'Gentle entry point', body: 'Great for first-time solo travelers — familiar yet deeply foreign' },
+      ],
+      also: 'France · Spain · Portugal',
+    },
+    bali: {
+      flag: '🇮🇩',
+      name: 'Bali, Indonesia',
+      tagline: 'The island that restores what modern life takes from you.',
+      description: `Bali has become a cliché — and it earned that reputation for a reason. There is something about this island that draws people who are depleted, searching, or quietly desperate for something they cannot name. And it delivers. Almost every time.
+
+The spirituality here is not decorative — it is woven into the fabric of daily life. Morning offerings, temple ceremonies, the smell of incense on warm air. It creates an environment where it is almost impossible not to slow down, turn inward, and listen to yourself.
+
+Beyond the wellness and spirituality, Bali offers extraordinary beauty — terraced rice fields, sacred forests, black sand beaches, world-class sunsets. And a solo travel infrastructure that makes it one of the most accessible first trips for those who have never traveled alone before. The Bali you find will be the Bali you needed.`,
+      whys: [
+        { title: 'Wellness culture', body: 'Yoga, meditation, healing — Bali does it better than anywhere' },
+        { title: 'Spiritual depth', body: 'A living spiritual culture that invites genuine reflection' },
+        { title: 'Solo-friendly', body: 'Excellent infrastructure and a huge community of solo travelers' },
+        { title: 'Natural beauty', body: 'Rice terraces, sacred forests, volcanic landscapes, beaches' },
+        { title: 'Restoration', body: 'If you are depleted, Bali has a way of filling you back up' },
+        { title: 'Retreat options', body: 'World-class retreat programs for every style and budget' },
+      ],
+      also: 'Sri Lanka · Thailand · Vietnam',
+    },
+    japan: {
+      flag: '🇯🇵',
+      name: 'Japan',
+      tagline: 'The country that teaches you how to be present again.',
+      description: `Japan is unlike anywhere else on earth. The precision, the beauty, the profound respect for craft and ritual and silence — it creates an experience that is simultaneously deeply foreign and strangely calming. Japan has a way of making you pay attention. And in paying attention, you come home different.
+
+For solo travelers, Japan is a revelation. It is one of the safest countries in the world, with an extraordinary train system that makes independent travel effortless. And yet it is so completely unlike anything in the Western world that it genuinely pushes you outside everything familiar.
+
+The food is its own meditation. The temples invite stillness. The cities hum with an energy that is electric without being overwhelming. Japan rewards the traveler who is willing to slow down and notice — and for anyone ready to reconnect with themselves, there are few better places to do it.`,
+      whys: [
+        { title: 'Extraordinary safety', body: 'One of the safest solo travel destinations in the world' },
+        { title: 'Culture unlike anywhere', body: 'Completely different world that shifts your perspective immediately' },
+        { title: 'Food as art', body: 'The most refined food culture on earth — every meal is an experience' },
+        { title: 'Ease of travel', body: 'World-class train system makes solo navigation effortless' },
+        { title: 'Mindfulness baked in', body: 'The culture itself invites slowness, presence and attention' },
+        { title: 'Stunning beauty', body: 'Cherry blossoms, bamboo forests, ancient temples, neon cities' },
+      ],
+      also: 'South Korea · Taiwan · Vietnam',
+    },
+    costa_rica: {
+      flag: '🇨🇷',
+      name: 'Costa Rica',
+      tagline: 'Where adventure meets pure life — and you remember what yours feels like.',
+      description: `Pura Vida. Pure Life. It is not just a phrase in Costa Rica — it is a philosophy, a greeting, a way of seeing the world. And it is contagious. Spend a week here and you will start to feel it in your bones: a lightening, a loosening, a return to something essential.
+
+Costa Rica is made for the woman who wants to feel alive through her body. Ziplining through cloud forests. Surfing for the first time. Hiking to hidden waterfalls. Swimming under waterfalls. Spotting wildlife so extraordinary it feels like a dream. The natural world here is so abundant, so generous, so wildly beautiful that it is impossible to stay stuck in your head.
+
+It is also one of the most accessible adventure destinations for first-time solo travelers — with excellent eco-lodges, well-developed tourism infrastructure, and a culture that is genuinely warm and welcoming.`,
+      whys: [
+        { title: 'Adventure & nature', body: 'Rainforests, volcanoes, beaches, wildlife — all in one small country' },
+        { title: 'Pura Vida culture', body: 'The local philosophy of joy and simplicity is deeply contagious' },
+        { title: 'First-timer friendly', body: 'Good infrastructure and English widely spoken' },
+        { title: 'Wildlife encounters', body: 'Monkeys, sloths, toucans, sea turtles — extraordinary biodiversity' },
+        { title: 'Body adventures', body: 'Surfing, ziplining, hiking, white-water rafting — you will feel alive' },
+        { title: 'Eco consciousness', body: 'One of the world\'s most sustainable travel destinations' },
+      ],
+      also: 'Peru · Colombia · Mexico',
+    },
+    greece: {
+      flag: '🇬🇷',
+      name: 'Greece',
+      tagline: 'Where the light is different and so are you by the time you leave.',
+      description: `There is something about the light in Greece that people cannot stop talking about. It is golden, warm, and seems to make everything — the white buildings, the blue domes, the turquoise water — glow from within. Being in it feels like being wrapped in something ancient and generous and deeply alive.
+
+Greece is the trip for travelers who want beauty, ease, history, and the particular pleasure of a solo meal with a glass of local wine and a view of the Aegean. It is not a challenging destination — it is a rewarding one. And there is a difference. Greece gives and gives without demanding too much in return.
+
+Island-hop through the Cyclades. Wander the ruins of Athens. Discover Crete's extraordinary food culture. Find a beach so beautiful you convince yourself this is what paradise actually looks like. Greece is where you go when you want to fall back in love with being alive.`,
+      whys: [
+        { title: 'Extraordinary beauty', body: 'Consistently ranked among the most beautiful places on earth' },
+        { title: 'History & culture', body: 'The cradle of Western civilization — history everywhere you look' },
+        { title: 'Island variety', body: 'Each Greek island has a completely different personality' },
+        { title: 'Solo dining perfection', body: 'Fresh seafood, local wine, and a culture that celebrates meals' },
+        { title: 'Safe & accessible', body: 'Easy to navigate independently with good English spoken widely' },
+        { title: 'The light', body: 'Everyone who goes talks about the light. There is simply nothing like it.' },
+      ],
+      also: 'Croatia · Turkey · Italy',
+    },
+    peru: {
+      flag: '🇵🇪',
+      name: 'Peru',
+      tagline: 'Ancient wisdom, impossible landscapes, and a trip that changes your scale.',
+      description: `Peru does something specific to people: it changes their sense of scale. Standing before the impossible terraces of Machu Picchu, or in the vast silence of the Sacred Valley, or on the shores of Lake Titicaca at 12,500 feet — you feel, viscerally, how ancient and enormous the world is. And how much of it there is still to discover.
+
+Peru is for travelers who are ready to be genuinely challenged and genuinely moved. The altitude is real — give yourself time to acclimatize. The history is extraordinary — the Inca civilization is more sophisticated and more mysterious than most people realize. The food scene in Lima has become world-class. And the landscapes shift from dramatic Andean peaks to lush Amazon jungle in ways that constantly surprise.
+
+This is not the easiest solo destination — but it is one of the most rewarding. Those who go to Peru come home having done something that required real courage. And that matters.`,
+      whys: [
+        { title: 'Life-changing scale', body: 'Machu Picchu and the Sacred Valley reframe everything' },
+        { title: 'Ancient civilization', body: 'The Inca world is one of history\'s great mysteries and wonders' },
+        { title: 'Diverse landscapes', body: 'Andes, Amazon, coast — extraordinary geographic variety' },
+        { title: 'Culinary excellence', body: 'Lima is one of the world\'s great food cities' },
+        { title: 'Genuine challenge', body: 'A trip that requires real courage — and rewards it fully' },
+        { title: 'Group trek options', body: 'Inca Trail group treks perfect for solo travelers wanting community' },
+      ],
+      also: 'Colombia · Chile · Argentina',
+    },
+  };
+
+  // ── scoring ────────────────────────────────────────────────────────────────
+  // Each answer adds weight to destination(s)
+  const scoreMap = {
+    // Q1 life stage
+    transition:  { morocco: 3, bali: 2, peru: 1 },
+    depleted:    { bali: 3, greece: 2, italy: 1 },
+    celebrating: { italy: 3, greece: 2, australia: 2 },
+    curious:     { morocco: 2, japan: 2, costa_rica: 2, peru: 1 },
+
+    // Q2 feeling
+    alive:     { costa_rica: 3, peru: 2, australia: 2 },
+    peaceful:  { bali: 3, japan: 2, greece: 2 },
+    connected: { morocco: 3, italy: 2, greece: 1 },
+    free:      { australia: 3, costa_rica: 2, peru: 2 },
+
+    // Q3 perfect day
+    adventure: { costa_rica: 3, australia: 3, peru: 2 },
+    culture:   { italy: 3, japan: 3, morocco: 2, greece: 2 },
+    food:      { italy: 3, japan: 2, peru: 2, greece: 2 },
+    wellness:  { bali: 3, greece: 2, japan: 1 },
+
+    // Q4 comfort zone
+    gentle:   { italy: 3, greece: 3, australia: 2 },
+    moderate: { japan: 3, morocco: 2, costa_rica: 2 },
+    bold:     { morocco: 3, peru: 3, costa_rica: 2 },
+
+    // Q5 landscape
+    ocean:   { australia: 3, greece: 3, costa_rica: 2 },
+    desert:  { morocco: 3, peru: 2 },
+    city:    { japan: 3, italy: 2, australia: 2 },
+    nature:  { costa_rica: 3, bali: 2, peru: 2, australia: 1 },
+
+    // Q6 social
+    social:     { morocco: 3, italy: 2, greece: 2, costa_rica: 1 },
+    open:       { australia: 2, japan: 2, peru: 2, italy: 2 },
+    'solo-solo':{ bali: 3, japan: 3, greece: 2 },
+
+    // Q7 word
+    transform: { morocco: 3, bali: 3, peru: 2 },
+    adventure: { costa_rica: 3, australia: 2, peru: 2 },
+    beauty:    { greece: 3, italy: 3, japan: 2 },
+    freedom:   { australia: 3, costa_rica: 2, peru: 2 },
+
+    // Q8 outcome
+    clarity:    { bali: 3, japan: 3, morocco: 2 },
+    stories:    { peru: 3, morocco: 2, costa_rica: 2, australia: 2 },
+    restored:   { bali: 3, greece: 3, italy: 2 },
+    connection: { morocco: 3, italy: 2, costa_rica: 2, greece: 2 },
+
+    // Q9 moment
+    spontaneous: { costa_rica: 3, morocco: 2, australia: 2 },
+    present:     { japan: 3, bali: 2, greece: 2 },
+    brave:       { peru: 3, morocco: 2, costa_rica: 2 },
+    human:       { morocco: 3, italy: 2, greece: 2 },
+  };
+
+  function selectOption(el) {
+    const card = el.closest('.question-card');
+    card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    const qIndex = parseInt(card.dataset.q);
+    answers[qIndex] = el.dataset.value;
+    const nextBtn = document.getElementById(`next-${qIndex}`);
+    if (nextBtn) nextBtn.classList.add('enabled');
+  }
+
+  function nextQuestion(current) {
+    if (!answers[current] && current < 8) return;
+    const cards = document.querySelectorAll('.question-card');
+    cards[current].classList.remove('active');
+    if (current + 1 < cards.length) {
+      cards[current + 1].classList.add('active');
+      updateProgress(current + 2);
+    }
+  }
+
+  function prevQuestion(current) {
+    const cards = document.querySelectorAll('.question-card');
+    cards[current].classList.remove('active');
+    cards[current - 1].classList.add('active');
+    updateProgress(current);
+  }
+
+  function updateProgress(questionNum) {
+    const pct = ((questionNum - 1) / TOTAL) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent =
+      questionNum <= TOTAL
+        ? `Question ${questionNum} of ${TOTAL}`
+        : 'Your result is ready!';
+  }
+
+  function calculateResult() {
+    const scores = {};
+    Object.keys(destinations).forEach(d => scores[d] = 0);
+    Object.values(answers).forEach(answer => {
+      const weights = scoreMap[answer] || {};
+      Object.entries(weights).forEach(([dest, weight]) => {
+        if (scores[dest] !== undefined) scores[dest] += weight;
+      });
+    });
+    return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+  }
+
+  function showResults() {
+    if (!answers[8]) return;
+    const cards = document.querySelectorAll('.question-card');
+    cards[8].classList.remove('active');
+
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressLabel').textContent = 'Your result is ready!';
+
+    const destKey = calculateResult();
+    const dest = destinations[destKey];
+    const resultsEl = document.getElementById('results');
+
+    resultsEl.innerHTML = `
+      <div class="result-hero">
+        <div class="result-eyebrow">Your solo travel match is</div>
+        <span class="result-flag">${dest.flag}</span>
+        <div class="result-destination">${dest.name}</div>
+        <div class="result-tagline">${dest.tagline}</div>
+      </div>
+
+      <div class="result-body">
+        <div class="result-section-title">Why ${dest.name} is calling you</div>
+        <div class="result-description">${dest.description.replace(/\n\n/g, '</div><div class="result-description">')}</div>
+
+        <div class="result-section-title">What makes it right for you right now</div>
+        <div class="why-grid">
+          ${dest.whys.map(w => `
+            <div class="why-item">
+              <div class="why-item-title">${w.title}</div>
+              <div class="why-item-body">${w.body}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="also-consider">
+          <div class="also-label">Also worth exploring</div>
+          <div class="also-destinations">${dest.also}</div>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Ready to make ${dest.name} happen?</h3>
+        <p>I would love to help you plan it — every detail, every decision, every beautiful thing in between. Book a free 30-minute discovery call and let's build your trip together.</p>
+        <div class="cta-buttons">
+          <a href="https://calendly.com/kelsey-likemindedgrouptravel/30min"
+             target="_blank" class="btn-white">Book My Free Discovery Call</a>
+          <a href="/#contact" class="btn-outline-white">Send Me a Message</a>
+        </div>
+      </div>
+    `;
+
+    resultsEl.classList.add('active');
+    document.getElementById('retakeWrap').style.display = 'block';
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function retakeQuiz() {
+    answers = {};
+    current = 0;
+    document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.btn-next').forEach(b => {
+      if (b.id !== 'next-8') b.classList.remove('enabled');
+    });
+    document.getElementById('results').classList.remove('active');
+    document.getElementById('results').innerHTML = '';
+    document.getElementById('retakeWrap').style.display = 'none';
+    document.querySelector('.question-card[data-q="0"]').classList.add('active');
+    updateProgress(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // init
+  updateProgress(1);
+</script>
+</body>
+</html>
